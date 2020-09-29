@@ -6,23 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-const HomeScreen: React.FC = ({navigation}) => {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() =>
-          navigation.navigate('Details', {
-            itemId: 86,
-            otherParam: 'anything you want here',
-          })
-        }
-      />
-    </View>
-  );
-};
+import HomeScreen from './screens/HomeScreen';
 
 const DetailScreen: React.FC = ({route, navigation}) => {
   const {itemId, otherParam} = route.params;
