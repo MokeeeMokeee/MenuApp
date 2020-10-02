@@ -6,7 +6,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import HomeScreen from './screens/HomeScreen';
+import HomeTabScreen from './src/screens/HomeTabScreen';
+import HomeScreen from './src/screens/HomeScreen';
 
 const DetailScreen: React.FC = ({route, navigation}) => {
   const {itemId, otherParam} = route.params;
@@ -56,7 +57,7 @@ const App: React.FC = () => {
           activeTintColor: 'tomato',
           inactiveTintColor: 'gray',
         }}>
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Home" component={HomeTabScreen} />
         <Tab.Screen name="Settings" component={SettingScreen} />
       </Tab.Navigator>
     </NavigationContainer>
