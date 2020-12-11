@@ -7,11 +7,11 @@ import TimeLineContent from './TimeLineContent';
 const DATA = [
   {
     id: '1',
-    title: '肉じゃが',
+    title: 'らーめん',
     userIcon: 'https://ca.slack-edge.com/T4XA8F39U-UH03RPMGV-ee74453b6ba5-512',
     userName: 'Hello World',
     userId: 'hello_world',
-    detail: '肉じゃがを作りました',
+    detail: 'らーめん',
     image:
       'https://asset.oceans-nadia.com/upload/save_image/79/79042f28d204.jpg?impolicy=cropwm&w=800&h=450',
   },
@@ -20,7 +20,7 @@ const DATA = [
     title: '肉じゃが',
     userIcon: 'https://ca.slack-edge.com/T4XA8F39U-UH03RPMGV-ee74453b6ba5-512',
     userName: 'Hello World',
-    userId: 'hello_world',
+    userId: 'iketti',
     detail:
       '肉じゃがを作りました肉じゃがを作りました肉じゃがを作りました肉じゃがを作りました肉じゃがを作りました肉じゃがを作りました',
     image:
@@ -78,12 +78,24 @@ const DATA = [
   },
 ];
 
-const TimeLine: React.FC = ({navigation}) => {
+const TimeLine = ({navigation}) => {
   return (
     <SafeAreaView>
       <ScrollView>
         {DATA.map((item, index) => {
           return (
+            // {
+            //   id: '1',
+            //   title: 'らーめん',
+            //   userIcon: 'https://ca.slack-edge.com/T4XA8F39U-UH03RPMGV-ee74453b6ba5-512',
+            //   userName: 'Hello World',
+            //   userId: 'hello_world',
+            //   detail: 'らーめん',
+            //   image:
+            //     'https://asset.oceans-nadia.com/upload/save_image/79/79042f28d204.jpg?impolicy=cropwm&w=800&h=450',
+            // },
+            // item.title -＞らーめん
+            // item.userName -> Hello World
             <TimeLineContent navigation={navigation} key={index} item={item} />
           );
         })}

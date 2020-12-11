@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeTabScreen from './src/screens/HomeTabScreen';
 import HomeScreen from './src/screens/HomeScreen';
 
-const DetailScreen: React.FC = ({route, navigation}) => {
+const DetailScreen = ({route, navigation}) => {
   const {itemId, otherParam} = route.params;
 
   return (
@@ -22,7 +22,7 @@ const DetailScreen: React.FC = ({route, navigation}) => {
   );
 };
 
-const SettingScreen: React.FC = () => {
+const SettingScreen = () => {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Text>Settings!</Text>
@@ -33,7 +33,7 @@ const SettingScreen: React.FC = () => {
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
