@@ -3,6 +3,7 @@ import {SafeAreaView, FlatList, Text, View, Button} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 
 import TimeLineContent from './TimeLineContent';
+// import SettingScreen from '../SettingScreen';
 
 const DATA = [
   {

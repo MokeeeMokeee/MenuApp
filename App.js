@@ -1,13 +1,16 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, Button, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeTabScreen from './src/screens/HomeTabScreen';
 import HomeScreen from './src/screens/HomeScreen';
+import PostScreen from './src/screens/PostScreen';
+import SettingScreen from './src/screens/SettingScreen';
+import restaurantScreen from './src/screens/restaurantScreen';
 
 const DetailScreen = ({route, navigation}) => {
   const {itemId, otherParam} = route.params;
@@ -22,13 +25,12 @@ const DetailScreen = ({route, navigation}) => {
   );
 };
 
-const SettingScreen = () => {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Settings!</Text>
-    </View>
-  );
-};
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+});
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -47,9 +49,12 @@ const App = () => {
               iconName = focused
                 ? 'account-settings'
                 : 'account-settings-outline';
+            } //new icon!
+            else if (route.name === 'restaurant') {
+              iconName = focused ? 'clipboard-file' : 'clipboard-file-outline';
             }
 
-            // You can return any component that you like here!
+            // アイコン追加　※なぜか"?"が表示される。
             return <Icon name={iconName} size={size} color={color} />;
           },
         })}
@@ -59,6 +64,14 @@ const App = () => {
         }}>
         <Tab.Screen name="Home" component={HomeTabScreen} />
         <Tab.Screen name="Settings" component={SettingScreen} />
+        <Tab.Screen name="restaurant" component={restaurantScreen} />
+        <Tab.Screen
+          name="Post"
+          component={PostScreen}
+          options={{
+            tabBarLabel: false,
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );

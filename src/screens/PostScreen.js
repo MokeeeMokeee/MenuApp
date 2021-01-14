@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostScreen = () => {
+const PostScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text>This is PostScreen</Text>
@@ -16,15 +16,4 @@ export default PostScreen = () => {
   );
 };
 
-/*export default PostScreen = ({navigation}) => {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>post Screen</Text>
-      <Button
-        title="navigation.push('Posts')"
-        onPress={() => navigation.push('Posts')}
-      />
-    </View>
-  );
-};
-*/
+export default PostScreen;

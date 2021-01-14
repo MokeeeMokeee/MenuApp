@@ -17,11 +17,12 @@ const MaterialTopTabNavi = () => {
       {/* <HomeTopTab.Screen name="setting" component={fuga} /> */}
       <HomeTopTab.Screen name="ホットワード" component={HotScreen} />
       <HomeTopTab.Screen name="アクセスランキング" component={AccessScreen} />
+      {/* <HomeTopTab.screen name="hoge" component={PostScreen} /> */}
     </HomeTopTab.Navigator>
   );
 };
 
-const HomeTabScreen = () => {
+const HomeTabScreen = ({navigation, route}) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -30,8 +31,9 @@ const HomeTabScreen = () => {
         options={{
           headerRight: () => (
             <Button
-              onPress={() => props.navigation.navigate('Posts')}
-              //alert('this is a button')}
+              onPress={() => navigation.navigate('Post')}
+              // props.navigation.navigate('Posts')}
+
               title="投稿"
               color="#000"
             />
@@ -45,7 +47,7 @@ const HomeTabScreen = () => {
           headerRight: () => (
             <Button
               onPress={() => navigation.navigate('Post')}
-              //{() => alert('this is a button')}
+              //onPress{() => alert('this is a button')}
               title="投稿"
               color="#000"
             />
