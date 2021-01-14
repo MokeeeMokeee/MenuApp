@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import {View, Text, Image, Button} from 'react-native';
 
-const Detail: React.FC = ({navigation, route}) => {
+const HomeDetail = ({navigation, route}) => {
   const {id, userIcon, userName, userId, detail, image} = route.params.item;
   console.log(detail);
   return (
@@ -12,4 +12,4 @@ const Detail: React.FC = ({navigation, route}) => {
     </View>
   );
 };
-export default Detail;
+export default HomeDetail;

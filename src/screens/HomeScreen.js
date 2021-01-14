@@ -4,11 +4,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import TimeLine from '../components/TimeLine';
-import Detail from '../components/Detail';
+import HomeDetail from '../components/Details/HomeDetail';
 
 const HomeStack = createStackNavigator();
 
-const HomeScreen: React.FC = () => {
+const HomeScreen = () => {
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen
@@ -19,8 +19,8 @@ const HomeScreen: React.FC = () => {
         }}
       />
       <HomeStack.Screen
-        name="Detail"
-        component={Detail}
+        name="HomeDetail"
+        component={HomeDetail}
         options={{
           title: '詳細ページ',
         }}

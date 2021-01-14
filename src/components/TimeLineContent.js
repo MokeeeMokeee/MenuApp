@@ -58,7 +58,7 @@ const ContentImageContainer = styled.View`
   position: relative;
 `;
 
-const TimeLineContent: React.FC = ({item, navigation}) => {
+const TimeLineContent = ({item, navigation}) => {
   const [favorited, isFavorited] = useState(false);
 
   const favo = () => {

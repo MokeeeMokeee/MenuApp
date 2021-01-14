@@ -1,15 +1,18 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, Button, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeTabScreen from './src/screens/HomeTabScreen';
 import HomeScreen from './src/screens/HomeScreen';
+import PostScreen from './src/screens/PostScreen';
+import SettingScreen from './src/screens/SettingScreen';
+import restaurantScreen from './src/screens/restaurantScreen';
 
-const DetailScreen: React.FC = ({route, navigation}) => {
+const DetailScreen = ({route, navigation}) => {
   const {itemId, otherParam} = route.params;
 
   return (
@@ -22,18 +25,17 @@ const DetailScreen: React.FC = ({route, navigation}) => {
   );
 };
 
-const SettingScreen: React.FC = () => {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Settings!</Text>
-    </View>
-  );
-};
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+});
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -47,9 +49,12 @@ const App: React.FC = () => {
               iconName = focused
                 ? 'account-settings'
                 : 'account-settings-outline';
+            } //new icon!
+            else if (route.name === 'restaurant') {
+              iconName = focused ? 'clipboard-file' : 'clipboard-file-outline';
             }
 
-            // You can return any component that you like here!
+            // アイコン追加　※なぜか"?"が表示される。
             return <Icon name={iconName} size={size} color={color} />;
           },
         })}
@@ -59,6 +64,14 @@ const App: React.FC = () => {
         }}>
         <Tab.Screen name="Home" component={HomeTabScreen} />
         <Tab.Screen name="Settings" component={SettingScreen} />
+        <Tab.Screen name="restaurant" component={restaurantScreen} />
+        <Tab.Screen
+          name="Post"
+          component={PostScreen}
+          options={{
+            tabBarLabel: false,
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
