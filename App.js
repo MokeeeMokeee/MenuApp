@@ -69,7 +69,7 @@ const App = () => {
           name="Post"
           component={PostScreen}
           options={{
-            tabBarLabel: false,
+            tabBarVisible: false,
           }}
         />
       </Tab.Navigator>
