@@ -6,24 +6,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import HomeTabScreen from './src/screens/HomeTabScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import PostScreen from './src/screens/PostScreen';
 import SettingScreen from './src/screens/SettingScreen';
-import restaurantScreen from './src/screens/restaurantScreen';
-
-const DetailScreen = ({route, navigation}) => {
-  const {itemId, otherParam} = route.params;
-
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Detail Screen</Text>
-      <Text>itemId: {JSON.stringify(itemId)}</Text>
-      <Text>otherParam: {JSON.stringify(otherParam)}</Text>
-      <Button title="Back to Home" onPress={() => navigation.goBack()} />
-    </View>
-  );
-};
+// import HogeScreen from './src/screens/Profile3/index';
+import VideoScreen from './src/screens/VideoScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,6 +24,17 @@ const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
+    // <NavigationContainer>
+    //   <Stack.Navigator>
+    //     <Stack.Screen
+    //       name="video"
+    //       component={VideoScreen}
+    //       options={{
+    //         headerTitle: '第3回 料理教室',
+    //       }}
+    //     />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({route}) => ({
@@ -62,16 +60,8 @@ const App = () => {
           activeTintColor: 'tomato',
           inactiveTintColor: 'gray',
         }}>
-        <Tab.Screen name="Home" component={HomeTabScreen} />
+        <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Settings" component={SettingScreen} />
-        <Tab.Screen name="restaurant" component={restaurantScreen} />
-        <Tab.Screen
-          name="Post"
-          component={PostScreen}
-          options={{
-            tabBarVisible: false,
-          }}
-        />
       </Tab.Navigator>
     </NavigationContainer>
   );

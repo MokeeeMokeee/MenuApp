@@ -16,7 +16,7 @@ const LeftContent = styled.View`
 `;
 const RightContent = styled.View`
   flex: 0 1 auto;
-  margin-left: 6px;
+  margin-left: 12px;
   width: 100%;
 `;
 
@@ -31,15 +31,18 @@ const InfoContainer = styled.View`
   display: flex;
   flex-direction: row;
   margin-bottom: 4px;
+  align-items: flex-end;
 `;
 const Name = styled.Text`
   font-weight: bold;
-  font-size: 16px;
+  font-size: 24px;
 `;
 const UserId = styled.Text`
   color: rgb(101, 119, 134);
   margin-left: 8px;
   font-size: 16px;
+  width: 100%;
+  text-align: right;
 `;
 const Detail = styled.Text`
   font-size: 16px;
@@ -52,13 +55,35 @@ const ContentImage = styled.Image`
   min-height: 200px;
   width: 100%;
   border-radius: 16px;
+  margin: 8px 0;
 `;
 
 const ContentImageContainer = styled.View`
   position: relative;
 `;
 
-const TimeLineContent = ({item, navigation}) => {
+const LeftContainer = (props, navigation) => {
+  const [item, setItem] = useState(props.item);
+  const [userIcon, setUserIcon] = useState(props.item.userIcon);
+
+  const UserNavigation = () => {
+    navigation.navigate('UserDetail');
+  };
+
+  return (
+    <LeftContent onPress={() => navigation.navigate('UserDetail')}>
+      <ImageContainer>
+        <UserImage
+          source={{
+            uri: `${userIcon}`,
+          }}
+        />
+      </ImageContainer>
+    </LeftContent>
+  );
+};
+
+const HomeContent = ({item, navigation}) => {
   const [favorited, isFavorited] = useState(false);
 
   const favo = () => {
@@ -68,25 +93,11 @@ const TimeLineContent = ({item, navigation}) => {
   console.log(item.image);
 
   return (
-    <Container
-      onPress={() =>
-        navigation.navigate('Detail', {
-          item,
-        })
-      }>
-      <LeftContent>
-        <ImageContainer>
-          <UserImage
-            source={{
-              uri: `${item.userIcon}`,
-            }}
-          />
-        </ImageContainer>
-      </LeftContent>
-      <RightContent>
+    <Container onPress={() => navigation.navigate('UserDetail')}>
+      <LeftContainer item={item} />
+      <RightContent onPress={() => navigation.navigate('HomeDetail')}>
         <InfoContainer>
-          <Name>{item.userName}</Name>
-          <UserId>@{item.userId}</UserId>
+          <Name>{item.title}</Name>
         </InfoContainer>
         <Detail>{item.detail}</Detail>
         <ContentImageContainer>
@@ -103,9 +114,10 @@ const TimeLineContent = ({item, navigation}) => {
             onPress={() => favo()}
           />
         </ContentImageContainer>
+        <UserId>by @{item.userId}</UserId>
       </RightContent>
     </Container>
   );
 };
 
-export default TimeLineContent;
+export default HomeContent;
