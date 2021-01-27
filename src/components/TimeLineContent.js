@@ -70,7 +70,7 @@ const TimeLineContent = ({item, navigation}) => {
   return (
     <Container
       onPress={() =>
-        navigation.navigate('Detail', {
+        navigation.navigate('HomeDetail', {
           item,
         })
       }>

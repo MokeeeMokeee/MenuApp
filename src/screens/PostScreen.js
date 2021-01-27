@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 import {
   StyleSheet,
@@ -11,6 +12,10 @@ import {
   Button,
   Image,
 } from 'react-native';
+
+const CancelButton = styled.Button`
+  text-align: left;
+`;
 
 const UserImage = styled.Image`
   width: 60px;
@@ -32,11 +37,20 @@ const Name = styled.Text`
 
 const TextInputStyle = styled.TextInput`
   font-size: 25px;
+  border: #000;
+  border-radius: 7px;
+  border-width: 1px;
 `;
 
 const Container = styled.SafeAreaView`
   display: flex;
   background: #fff;
+`;
+
+const ButtonStyle = styled.Button`
+  color: #ffcc66;
+  background: #ffcc66;
+  border: #000;
 `;
 
 // const UserId = styled.Text
@@ -72,9 +86,11 @@ const PostScreen = ({navigation}) => {
     setIcon(data.userIcon);
   }, []);
 
+  const [response, setResponse] = React.useState(null);
   return (
     <Container>
       <View>
+        <CancelButton title="キャンセル" onPress={() => navigation.goBack()} />
         <UserContainer>
           <UserImage
             source={{
@@ -90,16 +106,42 @@ const PostScreen = ({navigation}) => {
             value={value}
           />
         </View>
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <Icon name="picture" size={20} />
+        <View>
+          <Icon name="picture" size={50} />
+        </View>
+        <View>
+          <Button
+            title="Select image"
+            onPress={() =>
+              ImagePicker.launchImageLibrary(
+                {
+                  mediaType: 'photo',
+                  includeBase64: false,
+                  maxHeight: 200,
+                  maxWidth: 200,
+                },
+                response => {
+                  setResponse(response);
+                },
+              )
+            }
+          />
+
+          <Button
+            title="Select video"
+            onPress={() =>
+              ImagePicker.launchImageLibrary({mediaType: 'video'}, response => {
+                setResponse(response);
+              })
+            }
+          />
         </View>
       </View>
-      <Button
+      <ButtonStyle
         onPress={() => alert('this is a button')}
         title="投稿する"
         color="#FFCC66"
       />
-      <Button title="Back to Home" onPress={() => navigation.goBack()} />
     </Container>
   );
 };
