@@ -20,6 +20,11 @@ const RightContent = styled.View`
   width: 100%;
 `;
 
+const ImageContent = styled.View`
+  width: 60px;
+  height: 60px;
+`;
+
 const UserImage = styled.Image`
   width: 60px;
   height: 60px;
@@ -62,27 +67,6 @@ const ContentImageContainer = styled.View`
   position: relative;
 `;
 
-const LeftContainer = (props, navigation) => {
-  const [item, setItem] = useState(props.item);
-  const [userIcon, setUserIcon] = useState(props.item.userIcon);
-
-  const UserNavigation = () => {
-    navigation.navigate('UserDetail');
-  };
-
-  return (
-    <LeftContent onPress={() => navigation.navigate('UserDetail')}>
-      <ImageContainer>
-        <UserImage
-          source={{
-            uri: `${userIcon}`,
-          }}
-        />
-      </ImageContainer>
-    </LeftContent>
-  );
-};
-
 const HomeContent = ({item, navigation}) => {
   const [favorited, isFavorited] = useState(false);
 
@@ -93,28 +77,41 @@ const HomeContent = ({item, navigation}) => {
   console.log(item.image);
 
   return (
-    <Container onPress={() => navigation.navigate('UserDetail')}>
-      <LeftContainer item={item} />
-      <RightContent onPress={() => navigation.navigate('HomeDetail')}>
-        <InfoContainer>
-          <Name>{item.title}</Name>
-        </InfoContainer>
-        <Detail>{item.detail}</Detail>
-        <ContentImageContainer>
-          <ContentImage
-            source={{
-              uri: `${item.image}`,
-            }}
-          />
-          <Icon
-            style={{position: 'absolute', bottom: 5, right: 5}}
-            name={favorited ? 'favorite' : 'favorite-outline'}
-            color={favorited ? '#f00' : '#fff'}
-            size={40}
-            onPress={() => favo()}
-          />
-        </ContentImageContainer>
-        <UserId>by @{item.userId}</UserId>
+    <Container>
+      <LeftContent>
+        <ImageContainer>
+          <TouchableOpacity onPress={() => navigation.navigate('UserDetail')}>
+            <UserImage
+              source={{
+                uri: `${item.userIcon}`,
+              }}
+            />
+          </TouchableOpacity>
+        </ImageContainer>
+      </LeftContent>
+      <RightContent>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('HomeDetail', {item})}>
+          <InfoContainer>
+            <Name>{item.title}</Name>
+          </InfoContainer>
+          <Detail>{item.detail}</Detail>
+          <ContentImageContainer>
+            <ContentImage
+              source={{
+                uri: `${item.image}`,
+              }}
+            />
+            <Icon
+              style={{position: 'absolute', bottom: 5, right: 5}}
+              name={favorited ? 'favorite' : 'favorite-outline'}
+              color={favorited ? '#f00' : '#fff'}
+              size={40}
+              onPress={() => favo()}
+            />
+          </ContentImageContainer>
+          <UserId>by @{item.userId}</UserId>
+        </TouchableOpacity>
       </RightContent>
     </Container>
   );

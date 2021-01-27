@@ -24,6 +24,7 @@ const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
+    // オンライン授業のためのscreen
     // <NavigationContainer>
     //   <Stack.Navigator>
     //     <Stack.Screen
