@@ -1,24 +1,28 @@
 import React from 'react';
-import {StyleSheet, Text, View, Button,Image} from 'react-native';
+import {StyleSheet, Text, View, Button, Image, ScrollView} from 'react-native';
+
+/*
+*/
 
 const SettingScreen = () => {
-  _handleButtonPress = () => {
-    CameraRoll.getPhotos({
-      first: 20,
-      assetType: 'Photos',
-    })
+  const _handleButtonPress = () => {
+
+    const options = {
+      groupTypes: "Album",
+      assetType: "All",
+    }
+    CameraRoll.getPhotos(options)
       .then((r) => {
-        this.setState({photos: r.edges});
+        setState({photos: r.edges});
       })
       .catch((err) => {
-        //Error Loading Images
+        console.log(err);
       });
-  };
-  return (
-    <View>
-      <Button title="Load Images" onPress={this._handleButtonPress} />
-      <ScrollView>
-        {this.state.photos.map((p, i) => {
+      return (
+        <View style={styles.container}>
+          <Button titile="showImages" onPress={_handleButtonPress} />
+          <ScrollView>
+          {photos.map((p, i) => {
           return (
             <Image
               key={i}
@@ -30,11 +34,10 @@ const SettingScreen = () => {
             />
           );
         })}
-        ;
-      </ScrollView>
-    </View>
-  );
-};
+          </ScrollView>
+        </View>
+      );
+}
 
 const styles = StyleSheet.create({
   container: {
