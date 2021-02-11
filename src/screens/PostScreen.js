@@ -86,7 +86,7 @@ const PostScreen = ({navigation}) => {
         <View>
           <TextInputStyle
             multiline={true}
-            onChangeText={text => onChangeText(text)}
+            onChangeText={(text) => onChangeText(text)}
             value={value}
           />
         </View>

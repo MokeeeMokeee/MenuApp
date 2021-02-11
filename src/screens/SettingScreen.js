@@ -1,20 +1,43 @@
-import React, {Component} from 'react';
-import {StyleSheet, Text, View, TextInput} from 'react-native';
+import React from 'react';
+import {StyleSheet, Text, View, Button, Image, ScrollView} from 'react-native';
 
-const SettingScreen = ({navigation, route}) => {
-  const [value, onChangeText] = React.useState('Useless Placeholder');
+/*
+*/
 
-  return (
-    <View style={styles.container}>
-      <Text>(ユーザーアイコン)ユーザーネーム</Text>
-      <TextInput
-        style={styles.textinput}
-        onChangeText={text => onChangeText(text)}
-        value={value}
-      />
-    </View>
-  );
-};
+const SettingScreen = () => {
+  const _handleButtonPress = () => {
+
+    const options = {
+      groupTypes: "Album",
+      assetType: "All",
+    }
+    CameraRoll.getPhotos(options)
+      .then((r) => {
+        setState({photos: r.edges});
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      return (
+        <View style={styles.container}>
+          <Button titile="showImages" onPress={_handleButtonPress} />
+          <ScrollView>
+          {photos.map((p, i) => {
+          return (
+            <Image
+              key={i}
+              style={{
+                width: 300,
+                height: 100,
+              }}
+              source={{uri: p.node.image.uri}}
+            />
+          );
+        })}
+          </ScrollView>
+        </View>
+      );
+}
 
 const styles = StyleSheet.create({
   container: {

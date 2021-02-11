@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native'
+import {Dimensions} from 'react-native';
 
 export default {
   cardContainer: {
@@ -106,4 +106,4 @@ export default {
     fontSize: 10,
     textAlign: 'left',
   },
-}
+};

@@ -1,19 +1,13 @@
-import React from 'react'
-import { Image, StyleSheet, View } from 'react-native'
-import PropTypes from 'prop-types'
+import React from 'react';
+import {Image, StyleSheet, View} from 'react-native';
+import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   container: {},
   postImage: {},
-})
+});
 
-const Post = ({
-  containerStyle,
-  image,
-  imageHeight,
-  imageWidth,
-  postWidth,
-}) => {
+const Post = ({containerStyle, image, imageHeight, imageWidth, postWidth}) => {
   return (
     <View style={[styles.container, containerStyle]}>
       {image && (
@@ -29,8 +23,8 @@ const Post = ({
         />
       )}
     </View>
-  )
-}
+  );
+};
 
 Post.propTypes = {
   containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
@@ -38,7 +32,7 @@ Post.propTypes = {
   imageHeight: PropTypes.number,
   imageWidth: PropTypes.number,
   postWidth: PropTypes.number,
-}
+};
 
 Post.defaultProps = {
   containerStyle: {},
@@ -46,6 +40,6 @@ Post.defaultProps = {
   imageHeight: null,
   imageWidth: null,
   postWidth: null,
-}
+};
 
-export default Post
+export default Post;
