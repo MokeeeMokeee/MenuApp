@@ -1,50 +1,116 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {Alert} from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import Textarea from 'react-native-textarea';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
-import {
+
+import
+  {
+  ScrollView,
   StyleSheet,
   Text,
   View,
-  TextInput,
   SafeAreaView,
   Button,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 
-const UserImage = styled.Image`
-  width: 60px;
-  height: 60px;
-  border-radius: 90px;
-`;
+import {Input} from 'react-native-elements';
 
-const UserContainer = styled.View`
+
+const Container = styled.ScrollView`
   display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const Name = styled.Text`
-  font-weight: bold;
-  font-size: 16px;
-  margin-left: 8px;
-`;
-
-const TextInputStyle = styled.TextInput`
-  font-size: 25px;
-`;
-
-const Container = styled.SafeAreaView`
-  display: flex;
+  height: 100%;
   background: #fff;
 `;
 
-// const UserId = styled.Text
+const Content = styled.View`
+  margin: 16px 0;
+`
+
+const DetailContainer = styled.View`
+  display: flex;
+  padding: 16px;
+  border: solid 2px #000;
+  margin: 8px;
 `;
-//   color: rgb(101, 119, 134);
-//   margin-left: 8px;
-//   font-size: 16px;
-// `;
+
+const TextAreaStyle = styled(Textarea)`
+    max-height: 170px;
+    font-size: 14px;
+    color: #333;
+`;
+
+const Title = styled.Text`
+  margin-left: 8px;
+  font-weight: bold;
+  font-size: 20px;
+`;
+
+const ImagePickerButton = styled.TouchableOpacity`
+  border-radius: 24px;
+  padding: 8px 32px;
+  margin-top: 16px;
+  background: #f56500;
+  width: 200px;
+  text-align: center;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const PhotoContent = styled.View`
+  display: flex;
+  flex-direction: row;
+  margin: 16px 8px;
+  height: 100px;
+  position: relative;
+`
+const AddView = styled.View`
+  display: flex;
+  align-items: center;
+`
+
+const Label = styled.Text`
+  color: #fff;
+  font-weight: bold;
+`;
+
+const Photo = styled.Image`
+  width: 20%;
+  height: 100%;
+  border-radius: 8px;
+  /* flex: 1 1 100px; */
+`;
+
+const PhotoTextArea = styled(Textarea)`
+  height: 100px;
+  font-size: 14px;
+  color: #333;
+  padding: 6px;
+  width: 80%;
+`;
+
+const ButtonView = styled.View`
+  background-color: #ccc;
+  width: 28px;
+  height: 28px;
+  border-radius: 0px;
+  position: absolute;
+  z-index: 2;
+  top: -10px;
+  left: -4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ButtonDelete = styled.Button`
+`;
 
 const PostScreen = ({navigation}) => {
   const Data = [
@@ -65,17 +131,109 @@ const PostScreen = ({navigation}) => {
   const [data, setData] = React.useState({});
   const [name, setUserName] = React.useState('');
   const [icon, setIcon] = React.useState('');
+  const [title, setTitle] = useState('')
+  const [detail, setDetail] = useState('')
+  const [images, setImages] = useState([]);
 
-  React.useEffect(() => {
-    setData(Data[0]);
-    setUserName(data.userName);
-    setIcon(data.userIcon);
-  }, []);
+  const options = {
+    title: 'Load Photo',
+    customButtons: [
+      {name: 'button_id_1', title: 'CustomButton 1'},
+      {name: 'button_id_2', title: 'CustomButton 2'},
+    ],
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+    },
+  };
+
+  //  const showCamera = () => {
+  //    launchCamera(options, (response) => {
+  //      if (response.error) {
+  //        console.log('LaunchCamera Error: ', response.error);
+  //      } else {
+  //        setImages(response.uri);
+  //      }
+  //    });
+  //  };
+
+   const showCameraRoll = () => {
+     launchImageLibrary(options, (response) => {
+       if (response.error) {
+         console.log('LaunchImageLibrary Error: ', response.error);
+       } else {
+         setImages([
+           ...images,
+           { image: response.uri, text: ''}
+         ])
+       }
+     });
+   };
+  
+  const textFunc = (text, index) =>
+  {
+    const hoge = images.slice()
+    hoge[index].text = text;
+    setImages([...hoge])
+  }
+
+  const handleDelete = (index) =>
+  {
+    setImages(images.filter((_, i) => i !== index))
+  }
 
   return (
     <Container>
-      <View>
-        <UserContainer>
+      <Content>
+        <Input label="タイトル" onChangeText={(value) => setTitle(value)} />
+        <Title>概要説明</Title>
+        <DetailContainer>
+          <TextAreaStyle
+            onChangeText={(detail) => setDetail(detail)}
+            maxLength={120}
+            placeholder={'ここに簡単に説明文を書きましょう...!'}
+            placeholderTextColor={'#c7c7c7'}
+            underlineColorAndroid={'transparent'}
+          />
+        </DetailContainer>
+        <View>
+          <Title>作り方説明</Title>
+          {images.map((items, index) => {
+            let image = items.image;
+            let text = items.text;
+            return (
+              <PhotoContent key={index}>
+                <ButtonView>
+                  <ButtonDelete
+                    onPress={() => handleDelete(index)}
+                    title="X"
+                    color="#fff"
+                  />
+                </ButtonView>
+                <Photo source={{uri: image}} />
+                <PhotoTextArea
+                  onChangeText={(text) => textFunc(text, index)}
+                  maxLength={100}
+                  placeholder={'説明文'}
+                  placeholderTextColor={'#c7c7c7'}
+                  underlineColorAndroid={'transparent'}
+                />
+              </PhotoContent>
+            );
+          })}
+          {/* {images && <Photo source={{uri: images}} />} */}
+          {/* <ImagePickerButton onPress={showCamera}>
+            <Label>Take Photo</Label>
+          </ImagePickerButton> */}
+          <AddView>
+            <ImagePickerButton onPress={showCameraRoll}>
+              <Label>作り方を追加する</Label>
+            </ImagePickerButton>
+          </AddView>
+        </View>
+      </Content>
+
+      {/* <UserContainer>
           <UserImage
             source={{
               uri: `${icon}`,
@@ -99,7 +257,12 @@ const PostScreen = ({navigation}) => {
         title="投稿する"
         color="#FFCC66"
       />
-      <Button title="Back to Home" onPress={() => navigation.goBack()} />
+      <Button title="Back to Home" onPress={() => navigation.goBack()} /> */}
+      <Button
+        onPress={() => alert("送信!")}
+        title="メニューを投稿する"
+        color="#000"
+      />
     </Container>
   );
 };

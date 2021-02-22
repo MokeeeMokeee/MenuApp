@@ -6,10 +6,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 import TimeLine from '../components/TimeLine/Home';
 import HomeDetail from '../components/Details/HomeDetail';
 import UserDetail from '../screens/Profile3/index';
+import PostScreen from './PostScreen';
 
 const HomeStack = createStackNavigator();
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen
@@ -60,6 +61,7 @@ const HomeScreen = () => {
           headerTitle: 'ユーザーページ',
         }}
       />
+      <HomeStack.Screen name="Post" component={PostScreen} />
     </HomeStack.Navigator>
   );
 };
